@@ -1,96 +1,126 @@
-# Maji Ndogo Agricultural Data Exploration & Validation
+# Maji Ndogo: Agricultural Data Exploration and Weather Data Validation
 
-## Overview
+## Project Overview
 
-This project explores agricultural and environmental data from the fictional country of Maji Ndogo to uncover patterns that influence crop production. Using Python, exploratory data analysis (EDA) and data validation techniques were applied to investigate relationships between environmental variables, assess data quality, and generate insights to support data-driven agricultural decision-making.
+This project explores agricultural and environmental data from the fictional country of Maji Ndogo to identify patterns that may influence crop production.
+
+Using Python, SQL and exploratory data analysis (EDA), I investigated relationships between rainfall, temperature, soil characteristics, pollution levels and crop yields across five rural regions.
+
+The project also examines data reliability by extracting measurements from unstructured weather-station messages and comparing them against farm-level weather measurements.
 
 ## Objectives
 
-This project aims to:
+- Explore agricultural and environmental data across five regions.
+- Investigate relationships between environmental conditions and crop yields.
+- Examine regional differences in rainfall and crop distribution.
+- Identify patterns and anomalies using statistical analysis and visualisation.
+- Extract structured measurements from unstructured weather-station messages.
+- Validate farm-level weather measurements against independent weather-station data.
 
-* Perform exploratory data analysis on agricultural and environmental data.
-* Investigate the relationships between climate, soil, and crop yield.
-* Validate farm measurements against nearby weather station data.
-* Identify trends, patterns, and anomalies using statistical analysis and visualization.
-* Build confidence in the dataset before conducting further analysis.
+## Tools and Technologies
 
-## Dataset
+| Tool / Technology | Application |
+|---|---|
+| Python | Data analysis, cleaning and transformation |
+| Pandas | Data manipulation and statistical analysis |
+| SQL / SQLite | Querying and joining relational datasets |
+| Matplotlib | Data visualisation |
+| Seaborn | Exploratory and statistical visualisation |
+| Regular Expressions (RegEx) | Extracting measurements from unstructured text |
 
-The dataset contains information on:
+## Dataset Overview
 
-* Crop types
-* Crop yield
-* Rainfall
-* Temperature
-* Soil pH
-* Elevation
-* Soil fertility
-* Weather station measurements
+The agricultural dataset consisted of four related tables:
 
-Farm data is validated using measurements collected from nearby weather stations distributed across Maji Ndogo.
+- Geographic features
+- Weather features
+- Soil and crop features
+- Farm management features
 
-## Analysis Performed
+The tables were joined using `Field_ID`, producing an analytical dataset containing **5,654 records and 18 columns**.
 
-### Data Preparation
+The project also used **1,843 weather-station messages** collected from five stations. These messages contained temperature, rainfall and pollution measurements embedded in text.
 
-* Imported and cleaned agricultural data.
-* Handled missing values and inconsistencies.
-* Prepared datasets for analysis.
+## Methodology
 
-### Exploratory Data Analysis
+### 1. Data Preparation and Cleaning
 
-The analysis included:
+- Joined the four agricultural tables using SQL.
+- Standardised inconsistent crop labels and removed trailing whitespace.
+- Corrected negative elevation values.
+- Inspected data types, descriptive statistics and missing values.
+- Prepared the combined dataset for exploratory analysis.
 
-* Univariate analysis to understand variable distributions.
-* Multivariate analysis to explore relationships between environmental variables.
-* Analysis of categorical and continuous variables.
-* Investigation of crop-specific growing conditions.
-* Yield-focused analysis to identify factors associated with higher crop productivity.
+### 2. Exploratory Data Analysis
 
-### Data Validation
+Used Pandas, Matplotlib and Seaborn to investigate:
 
-To ensure the reliability of the dataset:
+- Regional rainfall distributions and averages.
+- Crop distribution across the five regions.
+- Relationships between environmental variables and crop yields.
+- Coffee yield relationships with rainfall, soil fertility and pollution.
 
-* Farm measurements were compared with data from nearby weather stations.
-* Average climate measurements were analysed across corresponding locations.
-* Environmental variables were validated before drawing analytical conclusions.
+### 3. Weather Data Extraction
 
-## Technologies Used
+Processed 1,843 weather-station messages using regular expressions to extract:
 
-* Python
-* Pandas
-* NumPy
-* Seaborn
-* Matplotlib
-* SciPy
-* Jupyter Notebook
+- Temperature
+- Rainfall
+- Pollution levels
 
-## Skills Demonstrated
+The extracted measurements were converted into structured data and grouped by weather-station ID.
 
-* Exploratory Data Analysis (EDA)
-* Data cleaning and preprocessing
-* Statistical analysis
-* Data validation
-* Data visualization
-* Correlation analysis
-* Feature exploration
-* Scientific data analysis
-* Analytical problem solving
+### 4. Weather Data Validation
 
-## Key Insights
+Matched farm records to their nearest weather stations and compared average measurements from both datasets.
 
-The analysis provides a deeper understanding of how environmental conditions influence agricultural outcomes in Maji Ndogo. By validating farm measurements against independent weather station data and exploring relationships between climate variables and crop performance, the project establishes a reliable foundation for evidence-based agricultural planning.
+A **1.5% tolerance** was used to assess agreement between the corresponding measurements.
 
-## Future Improvements
+## Key Findings
 
-Potential enhancements include:
+### Regional Rainfall Differences
 
-* Building predictive models for crop yield estimation.
-* Performing feature selection for machine learning applications.
-* Incorporating additional environmental variables.
-* Developing interactive dashboards to communicate insights.
-* Automating the data validation workflow.
+Average rainfall varied considerably across the five regions.
 
-## Acknowledgements
+| Region | Average Rainfall (mm) |
+|---|---:|
+| Rural Sokoto | 1,705.08 |
+| Rural Akatsi | 1,584.88 |
+| Rural Hawassa | 1,325.94 |
+| Rural Kilimani | 791.35 |
+| Rural Amanzi | 723.63 |
 
-This project was completed as part of the ALX Data Analytics programme and uses the fictional country of Maji Ndogo as a case study to demonstrate exploratory data analysis, data validation, and visualization techniques using Python.
+The difference between the highest and lowest regional averages was approximately **981.45 mm**.
+
+### Crop Distribution
+
+Crop distribution differed across regions. In Rural Amanzi, the three most frequently represented crop types included:
+
+| Crop | Number of Fields |
+|---|---:|
+| Potatoes | 98 |
+| Wheat | 69 |
+| Maize | 61 |
+
+These findings highlighted differences in agricultural patterns across regions with varying rainfall conditions.
+
+### Environmental Relationships and Coffee Yields
+
+Correlation analysis identified:
+
+- A negative correlation between pollution and standardised yield (**r = -0.286**).
+- A negative correlation between soil pH and standardised yield (**r = -0.197**).
+- Positive relationships between coffee yields, rainfall and soil fertility.
+- A negative relationship between coffee yields and pollution.
+
+These findings represent observed associations rather than evidence of causation.
+
+### Weather Data Validation Results
+
+A total of 15 comparisons were performed across five weather stations.
+
+| Measurement | Within Tolerance | Outside Tolerance |
+|---|---:|---:|
+| Temperature | 5/5 | 0/5 |
+| Rainfall | 1/5 | 4/5 |
+| Pollution
